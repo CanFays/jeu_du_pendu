@@ -11,6 +11,7 @@ const ticTac = () => {
   timerElement.innerText = `${time}`
   if (time === 0) {
     timerElement.innerText = "BOOOOM !!!"
+    loose()
   }
 }
 // Exécute une fonction toutes les secondes
@@ -61,6 +62,44 @@ displayWordToGuess()
 console.log("transfo en étoiles(starArray) : ok", starArray, starArray[1])
 
 
+
+// LOOOOOSE
+// si errorNumber = 10 || time === 0
+const loose = () => {
+  console.log("perdu")
+  // display none pour toutes les classes desert, block pour la classe loose
+  // bouton try again
+}
+
+
+// ACSII ART IMAGES BY ERRORS
+const ASCIIinsertion = () => {
+  if (errorNumber <= 9) {
+    const desertShowed = document.querySelector(".desert:not(.hide)");
+    const desertError = document.getElementById(`error${errorNumber}`)
+    desertShowed.classList.add("hide");
+    desertError.classList.remove("hide");
+  } else {
+    loose()
+  }
+}
+// Récupérer la première div visible
+// let divVisible = document.querySelector('div:not([style*="display: none"])');
+
+// Cacher la div visible
+// divVisible.style.display = 'none';
+
+// Trouver la div suivante
+// let divSuivante = divVisible.nextElementSibling;
+
+// Rendre la div suivante visible
+// if (divSuivante) {
+//   divSuivante.style.display = 'block';
+// }
+
+
+
+
 // INPUT LETTER
 
 const inputLetter = document.getElementById('letter');
@@ -98,6 +137,9 @@ inputLetter.addEventListener('keydown', function(event) {
       // on injecte badLetters dans html
       badLetters.innerText = badLettersArray
       // on fait avancer le display block
+      errorNumber++
+      console.log("errorNumber: ", errorNumber)
+      ASCIIinsertion()
     }
   };
   // suppr lettre du champs input
@@ -106,59 +148,7 @@ inputLetter.addEventListener('keydown', function(event) {
 
 
 
-
-// ACSII ART IMAGES BY ERRORS
-
-// Récupérer la première div visible
-// let divVisible = document.querySelector('div:not([style*="display: none"])');
-
-// Cacher la div visible
-// divVisible.style.display = 'none';
-
-// Trouver la div suivante
-// let divSuivante = divVisible.nextElementSibling;
-
-// Rendre la div suivante visible
-// if (divSuivante) {
-//   divSuivante.style.display = 'block';
-// }
-
-// OU
-// until 0 <= errorNumber <= 9
-// display none pour toutes les classes desert
-// sauf la desert avec id = error interpolation errorNumber
-// display block
-// quand errorNumber = 10 => function perdu
-
-
-
-// LOOOOOSE
-// si errorNumber = 10 || time === 0
-const loose = () => {
-  if (errorNumber === 10 || time === 0) {
-    console.log("perdu")
-    // display none pour toutes les classes desert, block pour la classe loose
-    // bouton try again
-  }
-}
-
-
-
 // SCORE
-// Sauvegarder le score
-localStorage.setItem('score', score);
-const resetButton = document.getElementById('resetButton');
-
-resetButton.addEventListener('click', function() {
-  // Récupérer le score du stockage web
-  const savedScore = localStorage.getItem('score');
-
-  // Réinitialiser la page
-  location.reload();
-
-  // Restaurer le score sauvegardé
-  if (savedScore) {
-    // Mettre à jour le score dans votre application
-    score = parseInt(savedScore);
-  }
-});
+// RELOAD
+// sauvegarder score dans localStorage
+// html: remettre les classes hide pour id="error1" à id="error9" et "loose"

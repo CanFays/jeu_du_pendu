@@ -7,6 +7,10 @@
 background-color: bisque;
 }
 
+.hide {
+  display: none;
+}
+
 .interface {
   display: flex;
   flex-direction: column;
