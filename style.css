@@ -1,0 +1,20 @@
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.ascii {
+background-color: bisque;
+}
+
+.interface {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
