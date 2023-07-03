@@ -2,25 +2,27 @@
 
 // TIMER
 
-const timer = () => {}
-
-let time = 20
-const timerElement = document.getElementById("timer");
+let time = 20 // globale pour pouvoir la réinitialiser à chaque input
 
 const ticTac = () => {
-  time = time < 10 ? "0" + time : time
+  const timerElement = document.getElementById("timer");
+  // time = time < 10 ? time : time                       // TO DO : afficher 0 avant le chiffre
   time = time <= 0 ? 0 : time - 1
   timerElement.innerText = `${time}`
   if (time === 0) {
     timerElement.innerText = "BOOOOM !!!"
     loose()
   }
+  console.log("timer : ok")
 }
-// Exécute une fonction toutes les secondes
-setInterval(ticTac, 1000)
-console.log("timer : ok")
 
-// Reste à stopper le timer quand le mot est trouvé ou quand le temps est écoulé
+const startTimer = () => {
+  setInterval(ticTac, 1000)
+}
+
+// Exécute une fonction toutes les secondes
+// TO DO : lancer timer après 1er input, stopper le timer quand le mot est trouvé ou quand le temps est écoulé
+// TO DO : remanier la fonction: si t<10, si t<=0, si loose or win ...
 
 
 // RANDOM WORDS     TO DO: ajouter un dico
@@ -65,14 +67,14 @@ console.log("transfo en étoiles(starArray) : ok", starArray, starArray[1])
 
 
 
-// LOOOOOSE
+// LOOOOOSE    - par asciiInsertion ou par Timer -
 const loose = () => {
   console.log("perdu")
   const desertShowed = document.querySelector(".desert:not(.hide)");
   desertShowed.classList.add("hide");  // A REFACTO, AUSSI DANS ASCIIinsertion
   const loose = document.getElementById("loose")
   loose.classList.remove("hide")
-  // TO DO : disparition interface + score + bouton try again
+  // TO DO : disparition interface + score + bouton try again + arrêt timer
 }
 
 // WIN
@@ -133,6 +135,8 @@ inputLetter.addEventListener('keydown', function(event) {
     letter = inputLetter.value.toUpperCase();
     console.log('Lettre saisie (letter):', letter);
     time = 20
+    setInterval(ticTac, 1000)
+    // time = 20
 // TO DO : ne pas prendre en compte les lettres déjà saisies et les appuis vides sur entrée
 
     // GOOD OR BAD INPUT
@@ -145,6 +149,37 @@ inputLetter.addEventListener('keydown', function(event) {
   };
   inputLetter.value = ""
 });
+
+
+// A TESTER POUR LE TIMER
+// let intervalId; // Variable pour stocker l'identifiant de l'intervalle
+// let timerActive = false; // Drapeau indiquant si le timer est actif ou non (dans return startTimer??)
+
+// inputLetter.addEventListener('keydown', function(event) {
+//   if (event.key === 'Enter' && inputLetter.value !== '') {
+//     letter = inputLetter.value.toUpperCase();
+//     console.log('Lettre saisie (letter):', letter);
+
+//     if (!timerActive) {
+//       time = 20;
+//       intervalId = setInterval(ticTac, 1000); // Lancer le timer
+//       timerActive = true; // Définir le drapeau à true
+//     } else {
+//       time = 20; // Réinitialiser le temps
+//     }
+
+//     // Effacer la valeur de l'input après chaque pression de la touche "Enter"
+//     inputLetter.value = '';
+//   }
+// });
+
+
+
+
+
+
+
+
 
 
 
