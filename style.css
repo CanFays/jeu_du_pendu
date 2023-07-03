@@ -1,8 +1,42 @@
+/* Flexbox elements */
+
 .game {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
+.interface {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.about-word {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+/* Style of the game */
+
+.box-style {
+  padding: 5%;
+  margin: 10%;
+  border: double rgb(252, 228, 199) 5px;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+/* Ascii code js and style */
 .ascii {
 background-color: bisque;
 }
@@ -11,14 +45,6 @@ background-color: bisque;
   display: none;
 }
 
-.interface {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.infos {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
+/* .btn {
+  border: solid black 2px;
+} */

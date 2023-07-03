@@ -21,7 +21,7 @@ console.log("timer : ok")
 // Reste à stopper le timer quand le mot est trouvé ou quand le temps est écoulé
 
 
-// RANDOM WORDS
+// RANDOM WORDS     TO DO: ajouter un dico
 const words = [
   "javascript",
   "formation",
@@ -64,15 +64,17 @@ console.log("transfo en étoiles(starArray) : ok", starArray, starArray[1])
 
 
 // LOOOOOSE
-// si errorNumber = 10 || time === 0
 const loose = () => {
   console.log("perdu")
-  // display none pour toutes les classes desert, block pour la classe loose
-  // bouton try again
+  const desertShowed = document.querySelector(".desert:not(.hide)");
+  desertShowed.classList.add("hide");  // A REFACTO, AUSSI DANS ASCIIinsertion
+  const loose = document.getElementById("loose")
+  loose.classList.remove("hide")
+  // TO DO : disparition interface + score + bouton try again
 }
 
 
-// ACSII ART IMAGES BY ERRORS
+// ACSII ART IMAGES BY ERROR NUMBER
 const ASCIIinsertion = () => {
   if (errorNumber <= 9) {
     const desertShowed = document.querySelector(".desert:not(.hide)");
@@ -83,22 +85,6 @@ const ASCIIinsertion = () => {
     loose()
   }
 }
-// Récupérer la première div visible
-// let divVisible = document.querySelector('div:not([style*="display: none"])');
-
-// Cacher la div visible
-// divVisible.style.display = 'none';
-
-// Trouver la div suivante
-// let divSuivante = divVisible.nextElementSibling;
-
-// Rendre la div suivante visible
-// if (divSuivante) {
-//   divSuivante.style.display = 'block';
-// }
-
-
-
 
 // INPUT LETTER
 
@@ -116,33 +102,28 @@ inputLetter.addEventListener('keydown', function(event) {
 
     // BAD AND GOOD LETTERS
 
-    // si inputLetter est dans wordToGuessArray
+    // GOOD LETTER : inputLetter est dans wordToGuessArray
     if (wordToGuessArray.includes(letter)) {
-      // pour chaque lettre qui correspond on récup l'index
-      // et on remplace à cet index l'étoile de starArray par la lettre
       for (let i = 0; i < wordToGuessArray.length; i++) {
         if (wordToGuessArray[i] === letter) {
           starArray[i] = letter;
-          console.log("starArray[i] : ", starArray[i], "starArray",starArray, "marche pas; LETTER:", letter, "i:", i, "V/F:", wordToGuessArray[i] === letter)
+          console.log("starArray[i] : ", starArray[i])
         }
       }
-      // on injecte starArray dans html
       starArrayString = starArray.join(" ")
       wordToGuess.innerText = starArrayString
       console.log("lettres bonnes: ", wordToGuessArray.includes(letter))
+      // BAD LETTER :
     } else {
-      console.log("lettres bonnes: ", wordToGuessArray.includes(inputLetter), "mauvaises:", badLetters)
-      // sinon, on met la lettre dans badLetters
       badLettersArray += letter
-      // on injecte badLetters dans html
       badLetters.innerText = badLettersArray
-      // on fait avancer le display block
+      const chances = document.getElementById("chances")
+      chances.innerText = `${errorNumber + 1}/9`
       errorNumber++
       console.log("errorNumber: ", errorNumber)
       ASCIIinsertion()
     }
   };
-  // suppr lettre du champs input
   inputLetter.value = ""
 });
 
