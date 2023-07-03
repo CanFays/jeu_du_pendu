@@ -2,6 +2,8 @@
 
 // TIMER
 
+const timer = () => {}
+
 let time = 20
 const timerElement = document.getElementById("timer");
 
@@ -77,7 +79,40 @@ const loose = () => {
 // TO DO : arrêt timer, score, message bravo, bouton rejouer
 
 
+
+// INPUT LETTER
+
+const inputLetter = document.getElementById('letter');
+const badLetters = document.getElementById("bad-letters")
+let badLettersArray = []
+let letter = ""
+let errorNumber = 0
+
+// BAD AND GOOD LETTER INPUT
+
+const goodLetter = () => {
+  for (let i = 0; i < wordToGuessArray.length; i++) {
+    if (wordToGuessArray[i] === letter) {
+      starArray[i] = letter;
+      console.log("starArray[i] : ", starArray[i])
+    }
+  }
+  starArrayString = starArray.join(" ")
+  wordToGuess.innerText = starArrayString
+  console.log("lettres bonnes: ", wordToGuessArray.includes(letter))
+}
+
+const badLetter = () => {
+  badLettersArray += letter
+  badLetters.innerText = badLettersArray
+  const chances = document.getElementById("chances")
+  chances.innerText = `${errorNumber + 1}/9`
+  errorNumber++
+  console.log("errorNumber: ", errorNumber)
+}
+
 // ACSII ART IMAGES BY ERROR NUMBER
+
 const ASCIIinsertion = () => {
   if (errorNumber <= 9) {
     const desertShowed = document.querySelector(".desert:not(.hide)");
@@ -89,42 +124,22 @@ const ASCIIinsertion = () => {
   }
 }
 
-// INPUT LETTER
 
-const inputLetter = document.getElementById('letter');
-const badLetters = document.getElementById("bad-letters")
-let badLettersArray = []
-let letter = ""
-let errorNumber = 0
+
+//                      .....   GAME   .....                      //
 
 inputLetter.addEventListener('keydown', function(event) {
   if (event.key === 'Enter' && inputLetter !== null) {
     letter = inputLetter.value.toUpperCase();
     console.log('Lettre saisie (letter):', letter);
     time = 20
-
-    // BAD AND GOOD LETTERS
 // TO DO : ne pas prendre en compte les lettres déjà saisies et les appuis vides sur entrée
 
-    // GOOD LETTER : inputLetter est dans wordToGuessArray
+    // GOOD OR BAD INPUT
     if (wordToGuessArray.includes(letter)) {
-      for (let i = 0; i < wordToGuessArray.length; i++) {
-        if (wordToGuessArray[i] === letter) {
-          starArray[i] = letter;
-          console.log("starArray[i] : ", starArray[i])
-        }
-      }
-      starArrayString = starArray.join(" ")
-      wordToGuess.innerText = starArrayString
-      console.log("lettres bonnes: ", wordToGuessArray.includes(letter))
-      // BAD LETTER :
+      goodLetter()
     } else {
-      badLettersArray += letter
-      badLetters.innerText = badLettersArray
-      const chances = document.getElementById("chances")
-      chances.innerText = `${errorNumber + 1}/9`
-      errorNumber++
-      console.log("errorNumber: ", errorNumber)
+      badLetter()
       ASCIIinsertion()
     }
   };
@@ -137,3 +152,9 @@ inputLetter.addEventListener('keydown', function(event) {
 // RELOAD
 // sauvegarder score dans localStorage
 // html: remettre les classes hide pour id="error1" à id="error9" et "loose"
+
+
+// GAME
+// random word
+// input
+// timer start
