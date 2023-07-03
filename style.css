@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center; /* Ajout de cette ligne */
 }
 
 .interface {
@@ -22,6 +23,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: fit-content;
 }
 
 /* Style of the interface */
@@ -45,8 +47,11 @@
   word-wrap: break-word;
 }
 
+.about-word {
+  margin: 0 auto;
+}
 .max-width-stars {
-  max-width: fit-content;
+  white-space: nowrap;
 }
 
 /* Ascii code js and style */

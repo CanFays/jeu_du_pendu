@@ -73,6 +73,9 @@ const loose = () => {
   // TO DO : disparition interface + score + bouton try again
 }
 
+// WIN
+// TO DO : arrêt timer, score, message bravo, bouton rejouer
+
 
 // ACSII ART IMAGES BY ERROR NUMBER
 const ASCIIinsertion = () => {
