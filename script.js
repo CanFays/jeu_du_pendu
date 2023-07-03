@@ -101,6 +101,7 @@ inputLetter.addEventListener('keydown', function(event) {
     time = 20
 
     // BAD AND GOOD LETTERS
+// TO DO : ne pas prendre en compte les lettres déjà saisies et les appuis vides sur entrée
 
     // GOOD LETTER : inputLetter est dans wordToGuessArray
     if (wordToGuessArray.includes(letter)) {

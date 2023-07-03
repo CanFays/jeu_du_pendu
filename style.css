@@ -24,7 +24,7 @@
   justify-content: space-evenly;
 }
 
-/* Style of the game */
+/* Style of the interface */
 
 .box-style {
   padding: 5%;
@@ -34,6 +34,19 @@
 
 .text-centered {
   text-align: center;
+}
+
+.max-width-bad {
+  min-width: 58px;
+  max-width: 58px;
+}
+
+#bad-letters {
+  word-wrap: break-word;
+}
+
+.max-width-stars {
+  max-width: fit-content;
 }
 
 /* Ascii code js and style */
