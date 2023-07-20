@@ -8,8 +8,8 @@ let tryAgain = false; // win ou loose
 
 const ticTac = () => {
   const timerElement = document.getElementById("timer");
-  time = time < 10 ? `0${time}` : time                       // TO DO : afficher 0 avant le chiffre
   time = time <= 0 ? 0 : time - 1
+  time = time < 10 ? `0${time}` : time                       // TO DO : afficher 0 avant le chiffre
   timerElement.innerText = `${time}`
   if (time === 0) {
     timerElement.innerText = "BOOOOM !!!"
