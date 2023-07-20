@@ -2,11 +2,13 @@
 
 // TIMER
 
-let time = 20 // globale pour pouvoir la réinitialiser à chaque input
+let time = 20; // globale, décompte du timer via ticTac
+let intervalId; // dans Game, clear le timer
+let tryAgain = false; // win ou loose
 
 const ticTac = () => {
   const timerElement = document.getElementById("timer");
-  // time = time < 10 ? time : time                       // TO DO : afficher 0 avant le chiffre
+  time = time < 10 ? `0${time}` : time                       // TO DO : afficher 0 avant le chiffre
   time = time <= 0 ? 0 : time - 1
   timerElement.innerText = `${time}`
   if (time === 0) {
@@ -16,12 +18,7 @@ const ticTac = () => {
   console.log("timer : ok")
 }
 
-const startTimer = () => {
-  setInterval(ticTac, 1000)
-}
-
-// Exécute une fonction toutes les secondes
-// TO DO : lancer timer après 1er input, stopper le timer quand le mot est trouvé ou quand le temps est écoulé
+// TO DO : stopper le timer quand le mot est trouvé ou quand le temps est écoulé
 // TO DO : remanier la fonction: si t<10, si t<=0, si loose or win ...
 
 
@@ -74,11 +71,17 @@ const loose = () => {
   desertShowed.classList.add("hide");  // A REFACTO, AUSSI DANS ASCIIinsertion
   const loose = document.getElementById("loose")
   loose.classList.remove("hide")
-  // TO DO : disparition interface + score + bouton try again + arrêt timer
+  clearInterval(intervalId)
+  // TO DO : disparition interface + score + bouton try again
 }
 
 // WIN
-// TO DO : arrêt timer, score, message bravo, bouton rejouer
+const win = () => {
+  console.log("gagné")
+
+  clearInterval(intervalId)
+}
+// TO DO : score, message bravo, bouton rejouer
 
 
 
@@ -129,14 +132,14 @@ const ASCIIinsertion = () => {
 
 
 //                      .....   GAME   .....                      //
-
 inputLetter.addEventListener('keydown', function(event) {
   if (event.key === 'Enter' && inputLetter !== null) {
     letter = inputLetter.value.toUpperCase();
     console.log('Lettre saisie (letter):', letter);
     time = 20
-    setInterval(ticTac, 1000)
-    // time = 20
+    clearInterval(intervalId);
+    intervalId = setInterval(ticTac, 1000);
+
 // TO DO : ne pas prendre en compte les lettres déjà saisies et les appuis vides sur entrée
 
     // GOOD OR BAD INPUT
@@ -173,6 +176,7 @@ inputLetter.addEventListener('keydown', function(event) {
 //   }
 // });
 
+// win
 
 
 
