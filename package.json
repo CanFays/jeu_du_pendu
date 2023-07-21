@@ -1,0 +1,8 @@
+{
+  "name": "jeu_du_pendu",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:CanFays/jeu_du_pendu.git",
+  "author": "candifa",
+  "license": "MIT"
+}
