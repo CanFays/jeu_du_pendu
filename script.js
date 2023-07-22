@@ -77,7 +77,7 @@ let errorNumber = 0
 
 const tryALetter = () => {
   letter = inputLetter.value.toUpperCase();
-  if (!badLettersArray.includes(letter)) {
+  if (!badLettersArray.includes(letter) || letter === /^[a-zA-Z-]$/) {
     time = 20
     clearInterval(intervalId);
     intervalId = setInterval(ticTac, 1000);
@@ -173,10 +173,13 @@ const tryAgainFunction = () => {
 //                      .....   GAME   .....                      //
 displayWordToGuess()
 inputLetter.addEventListener('keydown', function(event) {
+  console.log("event.key : ", event.key)
+  console.log('inputLetter', inputLetter)
+  console.log('inputLetter.value', inputLetter.value)
   if (event.key === 'Enter') {
     if (starArray.join("") === randomWord) {
       win()
-    } else if (!/^[a-zA-Z]+$/.test(event.key) && event.key !== '-') {
+    } else if (!/^[a-zA-Z]+$/.test(inputLetter.value) && inputLetter.value !== '-') {
       alert("Veuillez saisir une lettre ou un tiret")
     } else {
       if (event.key === 'Enter' && inputLetter !== null) {
