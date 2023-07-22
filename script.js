@@ -4,7 +4,7 @@
 
 let time = 20; // globale, décompte du timer via ticTac !! devient string qd <10 !!
 let intervalId; // dans Game, clear le timer
-let tryAgain = false; // win ou loose
+let tryAgain = false; // win ou loose, à voir si utile
 
 const ticTac = () => {
   const timerElement = document.getElementById("timer");
@@ -63,6 +63,66 @@ const displayWordToGuess = () => {
 console.log("transfo en étoiles(starArray) : ok", starArray, starArray[1])
 
 
+
+
+// INPUT LETTER
+
+const inputLetter = document.getElementById('letter');
+const badLetters = document.getElementById("bad-letters")
+let badLettersArray = []
+let letter = ""
+let errorNumber = 0
+
+// TRY , BAD AND GOOD LETTER INPUT
+
+const tryALetter = () => {
+  letter = inputLetter.value.toUpperCase();
+  if (!badLettersArray.includes(letter)) {
+    time = 20
+    clearInterval(intervalId);
+    intervalId = setInterval(ticTac, 1000);
+  }
+  console.log('Lettre saisie (letter):', letter);
+  return letter
+}
+
+const goodLetter = () => {
+  for (let i = 0; i < wordToGuessArray.length; i++) {
+    if (wordToGuessArray[i] === letter) {
+      starArray[i] = letter;
+      console.log("starArray[i] : ", starArray[i])
+    }
+  }
+  // starArrayString = starArray.join(" ")
+  wordToGuess.innerText = starArray.join(" ")
+  // starArrayString
+  console.log("lettres bonnes: ", wordToGuessArray.includes(letter))
+}
+
+const badLetter = () => {
+  const chances = document.getElementById("chances")
+  if (/[a-zA-Z]/.test(inputLetter.value)) {
+    chances.innerText = `${errorNumber + 1}/9`
+    errorNumber++
+    badLettersArray.push(letter);
+  }
+  badLetters.innerText = badLettersArray.join(" ")
+}
+
+
+
+// ACSII ART IMAGES BY ERROR NUMBER
+
+const ASCIIinsertion = () => {
+  if (errorNumber <= 9) {
+    hideDesertHTML()
+    const desertError = document.getElementById(`error${errorNumber}`)
+    desertError.classList.remove("hide");
+  } else {
+    loose()
+  }
+}
+
 // dans win, loose et ascii insertion
 const hideDesertHTML = () => {
   const desertShowed = document.querySelector(".desert:not(.hide)");
@@ -92,67 +152,9 @@ const win = () => {
 // Try again
 
 const tryAgainFunction = () => {
-
+  // addEventListener sur bouton try again
+  // location.reload();
 }
-
-
-// INPUT LETTER
-
-const inputLetter = document.getElementById('letter');
-const badLetters = document.getElementById("bad-letters")
-let badLettersArray = []
-let letter = ""
-let errorNumber = 0
-
-// TRY , BAD AND GOOD LETTER INPUT
-
-const tryALetter = () => {
-  letter = inputLetter.value.toUpperCase();
-  console.log('Lettre saisie (letter):', letter);
-  // if (!/^[a-zA-Z]+$/.test(letter)) {
-  //   console.log('regex okay')
-  //   alert("Veuillez saisir une lettre ou un tiret")
-  time = 20
-  clearInterval(intervalId);
-  intervalId = setInterval(ticTac, 1000);
-  return letter
-}
-
-const goodLetter = () => {
-  for (let i = 0; i < wordToGuessArray.length; i++) {
-    if (wordToGuessArray[i] === letter) {
-      starArray[i] = letter;
-      console.log("starArray[i] : ", starArray[i])
-    }
-  }
-  starArrayString = starArray.join(" ")
-  wordToGuess.innerText = starArrayString
-  console.log("lettres bonnes: ", wordToGuessArray.includes(letter))
-}
-
-const badLetter = () => {
-  badLettersArray += letter
-  badLetters.innerText = badLettersArray
-  const chances = document.getElementById("chances")
-  chances.innerText = `${errorNumber + 1}/9`
-  errorNumber++
-  console.log("errorNumber: ", errorNumber)
-}
-
-
-
-// ACSII ART IMAGES BY ERROR NUMBER
-
-const ASCIIinsertion = () => {
-  if (errorNumber <= 9) {
-    hideDesertHTML()
-    const desertError = document.getElementById(`error${errorNumber}`)
-    desertError.classList.remove("hide");
-  } else {
-    loose()
-  }
-}
-
 
 // SCORE
 
@@ -176,15 +178,15 @@ inputLetter.addEventListener('keydown', function(event) {
       win()
     } else if (!/^[a-zA-Z]+$/.test(event.key) && event.key !== '-') {
       alert("Veuillez saisir une lettre ou un tiret")
-      console.log(event.key)
     } else {
       if (event.key === 'Enter' && inputLetter !== null) {
         letter = tryALetter()
-  // TO DO : ne pas prendre en compte les lettres déjà saisies
-    
-        // GOOD OR BAD INPUT
+// TO DO : ne pas prendre en compte les lettres déjà saisies
         if (wordToGuessArray.includes(letter)) {
           goodLetter()
+        } else if (badLettersArray.includes(letter)) {
+          console.log("lettre déjà saisie")
+          null
         } else {
           badLetter()
           ASCIIinsertion()
@@ -193,12 +195,7 @@ inputLetter.addEventListener('keydown', function(event) {
     }
     inputLetter.value = ""
   }
+  // tryAgain ? tryAgainFunction() : null
 });
-
-
-
-
-
-
 
 
