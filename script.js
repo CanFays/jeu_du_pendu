@@ -1,11 +1,10 @@
 "use strict";
 
 // TIMER
-
 let time = 20; // globale, décompte du timer via ticTac !! devient string qd <10 !!
 let intervalId; // dans Game, clear le timer
 let tryAgain = false; // win ou loose, à voir si utile
-
+// TIMER
 const ticTac = () => {
   const timerElement = document.getElementById("timer");
   time = time <= 0 ? 0 : time - 1
@@ -39,14 +38,9 @@ const randomizeWord = () => {
 }
 
 
-
-const randomWord = randomizeWord()
-console.log("randomWord : ok - ", randomWord)
-
-
 // DISPLAY WORDS TO GUESS WITH STARS
 const wordToGuess = document.getElementById("word-to-guess")
-const wordToGuessArray = randomWord.split("")
+const wordToGuessArray = randomizeWord().split("")
 console.log("wordToGuessArray : ok - ", wordToGuessArray)
 
 let starArray = []
@@ -60,9 +54,6 @@ const displayWordToGuess = () => {
     wordToGuess.innerText = starArrayString
   })
 }
-console.log("transfo en étoiles(starArray) : ok", starArray, starArray[1])
-
-
 
 
 // INPUT LETTER
@@ -101,7 +92,7 @@ const goodLetter = () => {
 
 const badLetter = () => {
   const chances = document.getElementById("chances")
-  if (/[a-zA-Z]/.test(inputLetter.value)) {
+  if (/^[a-zA-Z-]/.test(inputLetter.value)) {
     chances.innerText = `${errorNumber + 1}/9`
     errorNumber++
     badLettersArray.push(letter);
@@ -177,14 +168,13 @@ inputLetter.addEventListener('keydown', function(event) {
   console.log('inputLetter', inputLetter)
   console.log('inputLetter.value', inputLetter.value)
   if (event.key === 'Enter') {
-    if (starArray.join("") === randomWord) {
+    if (starArray.join("") === randomizeWord()) {
       win()
     } else if (!/^[a-zA-Z]+$/.test(inputLetter.value) && inputLetter.value !== '-') {
       alert("Veuillez saisir une lettre ou un tiret")
     } else {
       if (event.key === 'Enter' && inputLetter !== null) {
         letter = tryALetter()
-// TO DO : ne pas prendre en compte les lettres déjà saisies
         if (wordToGuessArray.includes(letter)) {
           goodLetter()
         } else if (badLettersArray.includes(letter)) {
