@@ -38,6 +38,8 @@ const randomizeWord = () => {
   return words[randomIndex].toUpperCase()
 }
 
+
+
 const randomWord = randomizeWord()
 console.log("randomWord : ok - ", randomWord)
 
@@ -87,6 +89,12 @@ const win = () => {
 // TO DO : score, message bravo, bouton rejouer
 
 
+// Try again
+
+const tryAgainFunction = () => {
+
+}
+
 
 // INPUT LETTER
 
@@ -101,9 +109,9 @@ let errorNumber = 0
 const tryALetter = () => {
   letter = inputLetter.value.toUpperCase();
   console.log('Lettre saisie (letter):', letter);
-  if (!/^[a-zA-Z]+$/.test(letter)) {
-    console.log('regex okay')
-  }
+  // if (!/^[a-zA-Z]+$/.test(letter)) {
+  //   console.log('regex okay')
+  //   alert("Veuillez saisir une lettre ou un tiret")
   time = 20
   clearInterval(intervalId);
   intervalId = setInterval(ticTac, 1000);
@@ -146,68 +154,51 @@ const ASCIIinsertion = () => {
 }
 
 
-
-
-//                      .....   GAME   .....                      //
-displayWordToGuess()
-inputLetter.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter' && inputLetter !== null) {
-    letter = tryALetter()
-
-// TO DO : ne pas prendre en compte les lettres déjà saisies et les appuis vides sur entrée
-
-    // GOOD OR BAD INPUT
-    if (wordToGuessArray.includes(letter)) {
-      goodLetter()
-    } else {
-      badLetter()
-      ASCIIinsertion()
-    }
-  };
-  inputLetter.value = ""
-});
-
-
-// A TESTER POUR LE TIMER
-// let intervalId; // Variable pour stocker l'identifiant de l'intervalle
-// let timerActive = false; // Drapeau indiquant si le timer est actif ou non (dans return startTimer??)
-
-// inputLetter.addEventListener('keydown', function(event) {
-//   if (event.key === 'Enter' && inputLetter.value !== '') {
-//     letter = inputLetter.value.toUpperCase();
-//     console.log('Lettre saisie (letter):', letter);
-
-//     if (!timerActive) {
-//       time = 20;
-//       intervalId = setInterval(ticTac, 1000); // Lancer le timer
-//       timerActive = true; // Définir le drapeau à true
-//     } else {
-//       time = 20; // Réinitialiser le temps
-//     }
-
-//     // Effacer la valeur de l'input après chaque pression de la touche "Enter"
-//     inputLetter.value = '';
-//   }
-// });
-
-// win
-
-
-
-
-
-
-
-
-
-
 // SCORE
+
+
 // RELOAD
 // sauvegarder score dans localStorage
 // html: remettre les classes hide pour id="error1" à id="error9" et "loose"
 
 
-// GAME
-// random word
-// input
-// timer start
+
+
+
+
+
+
+//                      .....   GAME   .....                      //
+displayWordToGuess()
+inputLetter.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    if (starArray.join("") === randomWord) {
+      win()
+    } else if (!/^[a-zA-Z]+$/.test(event.key) && event.key !== '-') {
+      alert("Veuillez saisir une lettre ou un tiret")
+      console.log(event.key)
+    } else {
+      if (event.key === 'Enter' && inputLetter !== null) {
+        letter = tryALetter()
+  // TO DO : ne pas prendre en compte les lettres déjà saisies
+    
+        // GOOD OR BAD INPUT
+        if (wordToGuessArray.includes(letter)) {
+          goodLetter()
+        } else {
+          badLetter()
+          ASCIIinsertion()
+        }
+      };
+    }
+    inputLetter.value = ""
+  }
+});
+
+
+
+
+
+
+
+
