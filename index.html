@@ -464,7 +464,7 @@ Credit: bmw/MJP/jgs/jah
         on asciiart.eu/nature/deserts
         </pre>
       </div>
-      <div class="desert hide" id="loose">
+      <div class="desert hide"> <!-- id="loose" -->
         <pre>
 
 
@@ -500,6 +500,25 @@ Credit: asciiart.eu/nature/deserts
       </div>
     </div>
 
+    <div class="end-of-game">
+      <div class="hide" id="win">
+        <h2>Bravo !</h2>
+        <p>Vous avez trouvé le mot <span id="word-to-find">*****</span> en <span id="timer-end">20</span> secondes !</p>
+        <p>Vous avez fait <span id="chances-end">0</span> erreurs.</p>
+        <p>Vous avez utilisé les lettres suivantes : <span id="bad-letters-end">xxx</span></p>
+        <p>Vous avez gagné <span id="score">0</span> points !</p>
+        <button id="play-again">Rejouer</button>
+      </div>
+      <div class="hide" id="loose">
+        <h2>Perdu !</h2>
+        <p>Vous n'avez pas trouvé le mot <span id="word-to-find">*****</span></p>
+        <p>Vous avez fait <span id="chances-end">0</span> erreurs en <span id="timer-end">20</span> secondes !</p>
+        <p>Vous avez utilisé les lettres suivantes : <span id="bad-letters-end">xxx</span></p>
+        <p>Vous avez perdu <span id="score">0</span> points !</p>
+        <button id="play-again">Rejouer</button>
+      </div>
+    </div>
+
     <div class="interface text-centered">
       <h1>Le jeu du pendu</h1>
       <div class="infos">
@@ -519,7 +538,6 @@ Credit: asciiart.eu/nature/deserts
         </div>
       </div>
     </div>
-
   </div>
 
   <script src="script.js"></script>
